@@ -20,16 +20,16 @@ class AssignShelves
     until @shelves.count == 0 || @products.count == 0
       if (shelf_capacity - (size_of_product * @products.first["qty"])) == 0
         puts "Stock the #{@shelves.first["row"]} shelf with #{@products.first["qty"]} #{@products.first["name"]}(s)."
-        @products.delete(@products.first)
-        @shelves.delete(@shelves.first)
+        @products.delete_at(0)
+        @shelves.delete_at(0)
       elsif (shelf_capacity - (size_of_product * @products.first["qty"])) > 0
         puts "Stock the #{@shelves.first["row"]} shelf with #{@products.first["qty"]} #{@products.first["name"]}(s)."
         @shelves.first["capacity"] -= (size_of_product * @products.first["qty"])
-        @products.delete(@products.first)
+        @products.delete_at(0)
       elsif (shelf_capacity - (size_of_product * @products.first["qty"])) < 0
         puts "Stock the #{@shelves.first["row"]} shelf with " + number_of_products + " #{@products.first["name"]}(s)."
         @products.first["qty"] = product_left_over
-        @shelves.delete(@shelves.first)
+        @shelves.delete_at(0)
       end
     end
   end
