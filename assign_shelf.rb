@@ -12,7 +12,7 @@ class AssignShelves
     @products.sort_by! { |product| product["value"] }.reverse!
   end
 
-  def sort_shelfs
+  def sort_shelves
     @shelves.sort_by! {|product| product["visibility"] }.reverse!
   end
 
@@ -54,5 +54,5 @@ end
 
 stock = AssignShelves.new
 stock.sort_products
-stock.sort_shelfs
+stock.sort_shelves
 stock.output_instructions
