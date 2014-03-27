@@ -3,8 +3,6 @@ require 'json'
 
 class AssignShelves
 
-  attr_accessor :products, :shelves
-
   def initialize
     @products = JSON.parse(File.read("products.json"))["products"]
     @shelves = JSON.parse(File.read("shelves.json"))["shelves"]
@@ -18,22 +16,38 @@ class AssignShelves
     @shelves.sort_by! {|product| product["visibility"] }.reverse!
   end
 
-  def stock_shelfs
+  def output_instructions
     until @shelves.count == 0 || @products.count == 0
-      if (@shelves.first["capacity"] - (@products.first["size"] * @products.first["qty"])) == 0
-        puts "Stock the #{@shelves.first["row"]} shelve with #{@products.first["qty"]}, #{@products.first["name"]}(s)."
+      if (shelf_capacity - (size_of_product * @products.first["qty"])) == 0
+        puts "Stock the #{@shelves.first["row"]} shelf with #{@products.first["qty"]} #{@products.first["name"]}(s)."
         @products.delete(@products.first)
-        @sheves.delete(@shelves.first)
-      elsif (@shelves.first["capacity"] - (@products.first["size"] * @products.first["qty"])) > 0
-        puts "Stock the #{@shelves.first["row"]} shelve with #{@products.first["qty"]}, #{@products.first["name"]}(s)."
-        @shelves.first["capacity"] -= (@products.first["size"] * @products.first["qty"])
+        @shelves.delete(@shelves.first)
+      elsif (shelf_capacity - (size_of_product * @products.first["qty"])) > 0
+        puts "Stock the #{@shelves.first["row"]} shelf with #{@products.first["qty"]} #{@products.first["name"]}(s)."
+        @shelves.first["capacity"] -= (size_of_product * @products.first["qty"])
         @products.delete(@products.first)
-      elsif (@shelves.first["capacity"] - (@products.first["size"] * @products.first["qty"])) < 0
-        puts "Stock the #{@shelves.first["row"]} shelve with #{(@shelves.first["capacity"]/@products.first["size"])}, #{@products.first["name"]}(s)."
-        @products.first["qty"] = (((@shelves.first["capacity"] - (@products.first["size"] * @products.first["qty"])) * -1).to_f/@products.first["size"].to_f).ceil
+      elsif (shelf_capacity - (size_of_product * @products.first["qty"])) < 0
+        puts "Stock the #{@shelves.first["row"]} shelf with " + number_of_products + " #{@products.first["name"]}(s)."
+        @products.first["qty"] = product_left_over
         @shelves.delete(@shelves.first)
       end
     end
+  end
+
+  def number_of_products
+    (@shelves.first["capacity"]/size_of_product).to_s
+  end
+
+  def shelf_capacity
+    @shelves.first["capacity"]
+  end
+
+  def size_of_product
+    @products.first["size"]
+  end
+
+  def product_left_over
+    (((@shelves.first["capacity"] - (size_of_product * @products.first["qty"])) * -1).to_f/size_of_product.to_f).ceil
   end
 
 end
@@ -41,4 +55,4 @@ end
 stock = AssignShelves.new
 stock.sort_products
 stock.sort_shelfs
-stock.stock_shelfs
+stock.output_instructions

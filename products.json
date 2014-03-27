@@ -4,32 +4,32 @@
             "name": "Electronium Hat",
             "size": 2,
             "value": 3,
-            "qty": 14
+            "qty": 15
         },
         {
             "name": "Mind switcher",
             "size": 5,
             "value": 4,
-            "qty": 6
+            "qty": 0
+
         },
         {
             "name": "Finglonger",
             "size": 3,
             "value": 1,
-            "qty": 12
+            "qty": 0
         },
         {
             "name": "Gizmometer",
             "size": 1,
             "value": 1,
-            "qty": 18
+            "qty": 170
         },
         {
             "name": "Clone-O-Mat",
             "size": 4,
             "value": 2,
-            "qty": 12
+            "qty": 0
         }
     ]
 }
-
