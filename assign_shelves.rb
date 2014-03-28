@@ -26,11 +26,11 @@ class AssignShelves
         @products.delete_at(0)
         @shelves.delete_at(0)
       elsif (shelf_capacity - (size_of_product * @products.first["qty"])) > 0
-        puts "Stock the #{@shelves.first["row"]} shelf with #{@products.first["qty"]} #{@products.first["name"]}(s)." 
+        puts "Stock the #{@shelves.first["row"]} shelf with #{@products.first["qty"]} #{@products.first["name"]}(s)." if @products.first["qty"] > 0
         @shelves.first["capacity"] -= (size_of_product * @products.first["qty"])
         @products.delete_at(0)
       elsif (shelf_capacity - (size_of_product * @products.first["qty"])) < 0
-        puts "Stock the #{@shelves.first["row"]} shelf with " + number_of_products + " #{@products.first["name"]}(s)."
+        puts "Stock the #{@shelves.first["row"]} shelf with " + number_of_products + " #{@products.first["name"]}(s)." if number_of_products.to_i > 0
         @products.first["qty"] = product_left_over
         @shelves.first["capacity"] -= (number_of_products.to_i * size_of_product)
         check_for_space
