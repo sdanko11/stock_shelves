@@ -1,0 +1,11 @@
+{
+    "products": [
+        {
+            "name": "Electronium Hat",
+            "size": 2,
+            "value": 3,
+            "qty": 14
+        }
+
+    ]
+}
