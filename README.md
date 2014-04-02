@@ -1,1 +1,1 @@
-This is a command line program that lets store clerks know the arrangment to stock their shelves which will resault in the greatest amount of revenue.  The program takes shelf data, and product data in json format and outputs the optimal arrangement.
+This is a command line program that informs store clerks how to stock their shelves so they can maximize the amount of revenue for their store.  The program takes product data and shelf data in json format and outputs the optimal arrangement.
